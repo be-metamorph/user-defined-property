@@ -1,0 +1,26 @@
+{
+  "name": "@be-metamorph/user-defined-property-backend",
+  "version": "0.0.0",
+  "description": "A library making easy user defined property",
+  "keywords": [
+    "udp"
+  ],
+  "author": "Anthony Moynet <anthony.moynet@epitech.eu>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/user-defined-property-backend.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "node ./__tests__/@be-metamorph/user-defined-property-backend.test.js"
+  }
+}
