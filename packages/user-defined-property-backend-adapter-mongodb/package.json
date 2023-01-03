@@ -28,6 +28,7 @@
     "url": "https://github.com/be-metamorph/user-defined-property/issues"
   },
   "dependencies": {
+    "@be-metamorph/user-defined-property-shared": "^0.0.3-alpha.0",
     "mongodb": "^4.13.0"
   }
 }
