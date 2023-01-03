@@ -10,7 +10,7 @@ export interface CreateUserDefinedPropertyInput {
   label: string
 }
 
-export type UserDefinedProperty = {
+export class UserDefinedProperties {
   id: string
   type: UserDefinedPropertyType
   label: string
