@@ -11,7 +11,9 @@ class UserDefinedPropertyMongoDBAdapter {
 
   constructor(url: string, options?: MongoClientOptions) {
     this.client = new MongoClient(url, options);
-    this.userDefinedPropertyCollection = this.client.collection(COLLECTION_NAMES.USER_DEFINED_PROPERTY);
+    this.client.connect();
+
+    this.userDefinedPropertyCollection = this.client.db().collection(COLLECTION_NAMES.USER_DEFINED_PROPERTY);
   }
 
   getClient() {
