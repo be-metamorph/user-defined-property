@@ -27,7 +27,9 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   async findById(id: string) {
-    return this.userDefinedPropertyCollection.findOne({ id });
+    const { _id, ...userDefinedProperties } = await this.userDefinedPropertyCollection.findOne({ id });
+
+    return userDefinedProperties;
   }
 }
 
