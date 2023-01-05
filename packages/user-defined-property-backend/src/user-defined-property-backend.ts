@@ -27,13 +27,13 @@ class UserDefinedPropertyBackendFacade {
     return findUserDefinedPropertyById.execute(id);
   }
 
-  archiveUserDefinedProperty(id: string): Promise<boolean> {
+  archiveUserDefinedPropertyById(id: string): Promise<boolean> {
     const archiveUserDefinedPropertyById = new ArchiveUserDefinedPropertyById(this.options.adapter);
 
     return archiveUserDefinedPropertyById.execute(id);
   }
 
-  deleteUserDefinedProperty(id: string): Promise<boolean> {
+  deleteUserDefinedPropertyById(id: string): Promise<boolean> {
     const deleteUserDefinedPropertyById = new DeleteUserDefinedPropertyById(this.options.adapter);
 
     return deleteUserDefinedPropertyById.execute(id);
