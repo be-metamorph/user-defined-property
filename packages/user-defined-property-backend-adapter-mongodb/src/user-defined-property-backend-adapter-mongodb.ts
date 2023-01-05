@@ -31,6 +31,18 @@ class UserDefinedPropertyMongoDBAdapter {
 
     return userDefinedProperties;
   }
+
+  async archiveById(id: string) {
+    await this.userDefinedPropertyCollection.updateOne({ id }, { archived: true })
+
+    return true;
+  }
+
+  async deleteById(id: string) {
+    await this.userDefinedPropertyCollection.deleteOne({ id })
+
+    return true;
+  }
 }
 
 export default UserDefinedPropertyMongoDBAdapter;

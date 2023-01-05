@@ -3,6 +3,8 @@ import { UserDefinedPropertyAdapter, CreateUserDefinedPropertyInput } from '@be-
 import UserDefinedProperty from './user-defined-property';
 import CreateUserDefinedProperty from './create-user-defined-property';
 import FindUserDefinedPropertyById from './find-user-defined-property-by-id';
+import ArchiveUserDefinedPropertyById from './archive-user-defined-property-by-id';
+import DeleteUserDefinedPropertyById from './delete-user-defined-property-by-id';
 
 type UserDefinedPropertyBackendFacadeOptions = {
   adapter: UserDefinedPropertyAdapter;
@@ -23,6 +25,18 @@ class UserDefinedPropertyBackendFacade {
     const findUserDefinedPropertyById = new FindUserDefinedPropertyById(this.options.adapter);
 
     return findUserDefinedPropertyById.execute(id);
+  }
+
+  archiveUserDefinedProperty(id: string): Promise<boolean> {
+    const archiveUserDefinedPropertyById = new ArchiveUserDefinedPropertyById(this.options.adapter);
+
+    return archiveUserDefinedPropertyById.execute(id);
+  }
+
+  deleteUserDefinedProperty(id: string): Promise<boolean> {
+    const deleteUserDefinedPropertyById = new DeleteUserDefinedPropertyById(this.options.adapter);
+
+    return deleteUserDefinedPropertyById.execute(id);
   }
 }
 
