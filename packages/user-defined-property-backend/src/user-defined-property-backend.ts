@@ -9,9 +9,7 @@ type UserDefinedPropertyBackendFacadeOptions = {
 }
 
 class UserDefinedPropertyBackendFacade {
-  private options: UserDefinedPropertyBackendFacadeOptions;
-
-  constructor(options: UserDefinedPropertyBackendFacadeOptions) {
+  constructor(private options: UserDefinedPropertyBackendFacadeOptions) {
     this.options = options;
   }
 
