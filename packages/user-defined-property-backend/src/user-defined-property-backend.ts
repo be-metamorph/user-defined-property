@@ -9,9 +9,11 @@ type UserDefinedPropertyBackendFacadeOptions = {
 }
 
 class UserDefinedPropertyBackendFacade {
-  private options;
+  private options: UserDefinedPropertyBackendFacadeOptions;
 
-  constructor(options: UserDefinedPropertyBackendFacadeOptions) {}
+  constructor(options: UserDefinedPropertyBackendFacadeOptions) {
+    this.options = options;
+  }
 
   createUserDefinedProperty(input: CreateUserDefinedPropertyInput): boolean {
     const createUserDefinedProperty = new CreateUserDefinedProperty(this.options.adapter);
