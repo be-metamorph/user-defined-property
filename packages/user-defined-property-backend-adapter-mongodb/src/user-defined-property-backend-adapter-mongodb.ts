@@ -33,7 +33,7 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   async archiveById(id: string) {
-    await this.userDefinedPropertyCollection.updateOne({ id }, { archived: true })
+    await this.userDefinedPropertyCollection.updateOne({ id }, { $set: { archived: true } })
 
     return true;
   }
