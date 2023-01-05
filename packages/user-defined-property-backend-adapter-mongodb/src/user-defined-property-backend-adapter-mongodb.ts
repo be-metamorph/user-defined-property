@@ -27,7 +27,7 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   async update(id: string, input: UpdateUserDefinedPropertyInput) {
-    await this.userDefinedPropertyCollection.updateOne({ id }, input);
+    await this.userDefinedPropertyCollection.updateOne({ id }, { $set: input });
 
     return true;
   }
