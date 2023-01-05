@@ -8,6 +8,11 @@ export interface CreateUserDefinedPropertyInput {
   id: string
   type: UserDefinedPropertyType
   label: string
+  entity: string
+}
+
+export interface UpdateUserDefinedPropertyInput {
+  label: string
 }
 
 export class UserDefinedProperties {

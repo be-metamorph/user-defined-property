@@ -1,5 +1,5 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
-import { UserDefinedPropertyAdapter, CreateUserDefinedPropertyInput } from '@be-metamorph/user-defined-property-shared';
+import { UserDefinedPropertyAdapter, CreateUserDefinedPropertyInput, UpdateUserDefinedPropertyInput } from '@be-metamorph/user-defined-property-shared';
 
 const COLLECTION_NAMES = {
   USER_DEFINED_PROPERTY: 'userDefinedProperties',
@@ -26,16 +26,16 @@ class UserDefinedPropertyMongoDBAdapter {
     return true;
   }
 
+  async update(id: string, input: UpdateUserDefinedPropertyInput) {
+    await this.userDefinedPropertyCollection.updateOne({ id }, input);
+
+    return true;
+  }
+
   async findById(id: string) {
     const { _id, ...userDefinedProperties } = await this.userDefinedPropertyCollection.findOne({ id });
 
     return userDefinedProperties;
-  }
-
-  async archiveById(id: string) {
-    await this.userDefinedPropertyCollection.updateOne({ id }, { $set: { archived: true } })
-
-    return true;
   }
 
   async deleteById(id: string) {
