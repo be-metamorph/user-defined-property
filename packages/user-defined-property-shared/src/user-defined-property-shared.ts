@@ -23,6 +23,7 @@ export class UserDefinedProperties {
 
 export interface ListUserDefinedPropertiesParams {
   page?: { limit?: number, offset?: number }
+  sort?: { by?: 'entity' | 'label' | 'type', direction: 'asc' | 'desc' },
   entity?: string
   label?: string
   type?: UserDefinedPropertyType

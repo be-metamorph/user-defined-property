@@ -46,12 +46,22 @@ class UserDefinedPropertyMongoDBAdapter {
     return true;
   }
 
-  async find({ page: { offset = 0, limit = 25 } = {}, entity, type, label }: ListUserDefinedPropertiesParams  = {}) {
+  async find({
+    page: { offset = 0, limit = 25 } = {},
+    sort: { by = 'label', direction = 'asc' } = {},
+    entity,
+    type,
+    label,
+  }: ListUserDefinedPropertiesParams  = {}) {
     const query: Pick<ListUserDefinedPropertiesParams, 'entity' | 'type'> & { label?: RegExp } = { entity, type };
 
     if (label && label.length) query.label = new RegExp(`.*${label}.*`);
 
-    const userDefinedProperties = this.userDefinedPropertyCollection.find(query).offset(offset).limit(limit);
+    const userDefinedProperties = this.userDefinedPropertyCollection
+      .find(query)
+      .skip(offset)
+      .limit(limit)
+      .sort({ [by]: { asc: 1, desc: -1 }[direction] });
 
     return userDefinedProperties.map(this.format);
   }
