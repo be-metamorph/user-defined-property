@@ -80,9 +80,11 @@ class UserDefinedPropertyMongoDBAdapter {
   async saveRessourceUserDefinedPropertyValues({ ressourceId, values }: SaveRessourceUserDefinedPropertieValuesInput) {
     await this.userDefinedPropertyValueCollection.bulkWrite(
       values.map(({ userDefinedPropertyId, value }) => ({
-        filter: { userDefinedPropertyId, ressourceId },
-        update: { value },
-        upsert: true,
+        updateOne: {
+          filter: { userDefinedPropertyId, ressourceId },
+          update: { value },
+          upsert: true,
+        }
       }))
     )
 
