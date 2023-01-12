@@ -90,6 +90,21 @@ class UserDefinedPropertyMongoDBAdapter {
 
     return true;
   }
+
+  async getRessourceUserDefinedPropertyValues(ressourceId: string) {
+    return this.userDefinedPropertyValueCollection.aggregate([
+      { $match : { ressourceId } },
+      { $lookup: {
+        from: COLLECTION_NAMES.USER_DEFINED_PROPERTY,
+        localKey: 'userDefinedPropertyId',
+        foreignKey: 'id',
+        as: 'userDefinedProperty'
+      }},
+      { $addFields: { userDefinedProperty: { $arrayElemAt: ['$userDefinedProperty', 0] } }},
+      { $unset: 'userDefinedProperty._id' },
+      { $project: { _id: 0, userDefinedProperty: 1, value: 1 }}
+    ])
+  }
 }
 
 export default UserDefinedPropertyMongoDBAdapter;

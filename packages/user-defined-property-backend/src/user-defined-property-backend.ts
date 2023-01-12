@@ -13,6 +13,7 @@ import DeleteUserDefinedPropertyById from './delete-user-defined-property-by-id'
 import UpdateUserDefinedProperty from './update-user-defined-property';
 import ListUserDefinedProperties from './list-user-defined-properties';
 import SaveRessourceUserDefinedPropertyValues from './save-ressource-user-defined-property-values';
+import GetRessourceUserDefinedPropertyValues from './get-ressource-user-defined-property-values';
 
 type UserDefinedPropertyBackendFacadeOptions = {
   adapter: UserDefinedPropertyAdapter;
@@ -57,6 +58,12 @@ class UserDefinedPropertyBackendFacade {
     const saveRessourceUserDefinedPropertyValues = new SaveRessourceUserDefinedPropertyValues(this.options.adapter);
 
     return saveRessourceUserDefinedPropertyValues.execute(input);
+  }
+
+  getRessourceUserDefinedPropertyValues(ressourceId: string) {
+    const getRessourceUserDefinedPropertyValues =  new GetRessourceUserDefinedPropertyValues(this.options.adapter);
+
+    return getRessourceUserDefinedPropertyValues.execute(ressourceId);
   }
 }
 
