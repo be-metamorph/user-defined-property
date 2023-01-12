@@ -82,7 +82,7 @@ class UserDefinedPropertyMongoDBAdapter {
       values.map(({ userDefinedPropertyId, value }) => ({
         updateOne: {
           filter: { userDefinedPropertyId, ressourceId },
-          update: { value },
+          update: { $set: { value } },
           upsert: true,
         }
       }))
