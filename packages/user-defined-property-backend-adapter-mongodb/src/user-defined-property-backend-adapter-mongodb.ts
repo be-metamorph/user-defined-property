@@ -53,14 +53,16 @@ class UserDefinedPropertyMongoDBAdapter {
     type,
     label,
   }: ListUserDefinedPropertiesParams  = {}) {
-    const query: Pick<ListUserDefinedPropertiesParams, 'entity' | 'type'> & { label?: RegExp } = { entity, type };
+    const query: Pick<ListUserDefinedPropertiesParams, 'entity' | 'type'> & { label?: RegExp } = {};
 
+    if (entity) query.entity = entity;
+    if (type) query.type = type;
     if (label && label.length) query.label = new RegExp(`.*${label}.*`);
 
     const userDefinedProperties = await this.userDefinedPropertyCollection
       .find(query)
-      .skip(offset)
-      .limit(limit)
+      .skip(Number.isInteger(offset))
+      .limit(Number.isInteger(limit))
       .sort({ [by]: { asc: 1, desc: -1 }[direction] });
 
     return userDefinedProperties.map(this.format);
