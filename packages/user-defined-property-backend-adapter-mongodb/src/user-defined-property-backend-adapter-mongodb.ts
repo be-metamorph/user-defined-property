@@ -17,6 +17,7 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   private format({ _id, ...userDefinedProperty }) {
+    console.log(userDefinedProperty)
     return userDefinedProperty;
   }
 
@@ -62,6 +63,8 @@ class UserDefinedPropertyMongoDBAdapter {
       .skip(offset)
       .limit(limit)
       .sort({ [by]: { asc: 1, desc: -1 }[direction] });
+
+    console.log(JSON.stringify(userDefinedProperties, null, 2))
 
     return userDefinedProperties.map(this.format);
   }
