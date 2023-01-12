@@ -10,7 +10,6 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "push-publish": "lerna run tsc && lerna publish",
     "publish": "git commit -am \"pub\" && git push --no-verify && lerna run tsc && lerna publish"
   }
 }
