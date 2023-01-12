@@ -3,6 +3,7 @@ import {
   CreateUserDefinedPropertyInput,
   UpdateUserDefinedPropertyInput,
   ListUserDefinedPropertiesParams,
+  SaveRessourceUserDefinedPropertieValuesInput,
 } from '@be-metamorph/user-defined-property-shared';
 
 import UserDefinedProperty from './user-defined-property';
@@ -11,6 +12,7 @@ import FindUserDefinedPropertyById from './find-user-defined-property-by-id';
 import DeleteUserDefinedPropertyById from './delete-user-defined-property-by-id';
 import UpdateUserDefinedProperty from './update-user-defined-property';
 import ListUserDefinedProperties from './list-user-defined-properties';
+import SaveRessourceUserDefinedPropertyValues from './save-ressource-user-defined-property-values';
 
 type UserDefinedPropertyBackendFacadeOptions = {
   adapter: UserDefinedPropertyAdapter;
@@ -49,6 +51,12 @@ class UserDefinedPropertyBackendFacade {
     const listUserDefinedProperties = new ListUserDefinedProperties(this.options.adapter);
 
     return listUserDefinedProperties.execute(params);
+  }
+
+  saveRessourceUserDefinedPropertyValues(input: SaveRessourceUserDefinedPropertieValuesInput) {
+    const saveRessourceUserDefinedPropertyValues = new SaveRessourceUserDefinedPropertyValues(this.options.adapter);
+
+    return saveRessourceUserDefinedPropertyValues.execute(input);
   }
 }
 

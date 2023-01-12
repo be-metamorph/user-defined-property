@@ -28,3 +28,13 @@ export interface ListUserDefinedPropertiesParams {
   label?: string
   type?: UserDefinedPropertyType
 }
+
+export interface SaveRessourceUserDefinedPropertieValueInput {
+  userDefinedPropertyId: string
+  value: any
+}
+
+export interface SaveRessourceUserDefinedPropertieValuesInput {
+  ressourceId: string
+  values: SaveRessourceUserDefinedPropertieValueInput[]
+}

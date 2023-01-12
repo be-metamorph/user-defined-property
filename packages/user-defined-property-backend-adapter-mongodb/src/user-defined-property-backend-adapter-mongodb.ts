@@ -1,19 +1,27 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
-import { CreateUserDefinedPropertyInput, UpdateUserDefinedPropertyInput, ListUserDefinedPropertiesParams } from '@be-metamorph/user-defined-property-shared';
+import {
+  CreateUserDefinedPropertyInput,
+  UpdateUserDefinedPropertyInput,
+  ListUserDefinedPropertiesParams,
+  SaveRessourceUserDefinedPropertieValuesInput,
+} from '@be-metamorph/user-defined-property-shared';
 
 const COLLECTION_NAMES = {
   USER_DEFINED_PROPERTY: 'userDefinedProperties',
+  USER_DEFINED_PROPERTY_VALUE: 'userDefinedPropertyValues',
 }
 
 class UserDefinedPropertyMongoDBAdapter {
   private client;
   private userDefinedPropertyCollection;
+  private userDefinedPropertyValueCollection;
 
   constructor(url: string, options?: MongoClientOptions) {
     this.client = new MongoClient(url, options);
     this.client.connect();
 
     this.userDefinedPropertyCollection = this.client.db().collection(COLLECTION_NAMES.USER_DEFINED_PROPERTY);
+    this.userDefinedPropertyValueCollection = this.client.db().collection(COLLECTION_NAMES.USER_DEFINED_PROPERTY_VALUE);
   }
 
   private format({ _id, ...userDefinedProperty }) {
@@ -67,6 +75,18 @@ class UserDefinedPropertyMongoDBAdapter {
       .toArray();
 
     return userDefinedProperties.map(this.format);
+  }
+
+  async saveRessourceUserDefinedPropertyValues({ ressourceId, values }: saveRessourceUserDefinedPropertyValues) {
+    await this.userDefinedPropertyValueCollection.bulkWrite(
+      values.map(({ userDefinedPropertyId, value }) => ({
+        filter: { userDefinedPropertyId, ressourceId },
+        update: { value },
+        upsert: true,
+      }))
+    )
+
+    return true;
   }
 }
 
