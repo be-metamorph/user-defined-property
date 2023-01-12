@@ -63,7 +63,8 @@ class UserDefinedPropertyMongoDBAdapter {
       .find(query)
       .skip(Number.isInteger(offset) ? offset : parseInt(limit as any))
       .limit(Number.isInteger(limit) ? limit : parseInt(limit as any))
-      .sort({ [by]: { asc: 1, desc: -1 }[direction] });
+      .sort({ [by]: { asc: 1, desc: -1 }[direction] })
+      .toArray();
 
     return userDefinedProperties.map(this.format);
   }
