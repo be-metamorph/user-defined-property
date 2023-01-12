@@ -77,7 +77,7 @@ class UserDefinedPropertyMongoDBAdapter {
     return userDefinedProperties.map(this.format);
   }
 
-  async saveRessourceUserDefinedPropertyValues({ ressourceId, values }: saveRessourceUserDefinedPropertyValues) {
+  async saveRessourceUserDefinedPropertyValues({ ressourceId, values }: SaveRessourceUserDefinedPropertieValuesInput) {
     await this.userDefinedPropertyValueCollection.bulkWrite(
       values.map(({ userDefinedPropertyId, value }) => ({
         filter: { userDefinedPropertyId, ressourceId },
