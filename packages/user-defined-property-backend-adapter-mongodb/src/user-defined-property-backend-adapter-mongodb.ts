@@ -46,7 +46,7 @@ class UserDefinedPropertyMongoDBAdapter {
     return true;
   }
 
-  async find({ page: { offset = 0, limit = 25 } = {}, entity, type, label }: ListUserDefinedPropertiesParams) {
+  async find({ page: { offset = 0, limit = 25 } = {}, entity, type, label }: ListUserDefinedPropertiesParams  = {}) {
     const query: ListUserDefinedPropertiesParams = { entity, type };
 
     if (label && label.length) query.label = new RegExp(`.*${label}.*`);

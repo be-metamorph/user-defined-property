@@ -22,8 +22,8 @@ export class UserDefinedProperties {
 }
 
 export interface ListUserDefinedPropertiesParams {
-  page: { limit: number, offset: number }
-  entity: string
-  label: string
-  type: UserDefinedPropertyType
+  page?: { limit: number, offset: number }
+  entity?: string
+  label?: string
+  type?: UserDefinedPropertyType
 }
