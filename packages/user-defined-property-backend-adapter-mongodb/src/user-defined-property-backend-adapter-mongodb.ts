@@ -97,8 +97,8 @@ class UserDefinedPropertyMongoDBAdapter {
         { $match : { ressourceId } },
         { $lookup: {
           from: COLLECTION_NAMES.USER_DEFINED_PROPERTY,
-          localKey: 'userDefinedPropertyId',
-          foreignKey: 'id',
+          localField: 'userDefinedPropertyId',
+          foreignField: 'id',
           as: 'userDefinedProperty'
         }},
         { $addFields: { userDefinedProperty: { $arrayElemAt: ['$userDefinedProperty', 0] } }},
