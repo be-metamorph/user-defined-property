@@ -17,7 +17,6 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   private format({ _id, ...userDefinedProperty }) {
-    console.log(userDefinedProperty)
     return userDefinedProperty;
   }
 
@@ -58,13 +57,11 @@ class UserDefinedPropertyMongoDBAdapter {
 
     if (label && label.length) query.label = new RegExp(`.*${label}.*`);
 
-    const userDefinedProperties = this.userDefinedPropertyCollection
+    const userDefinedProperties = await this.userDefinedPropertyCollection
       .find(query)
       .skip(offset)
       .limit(limit)
       .sort({ [by]: { asc: 1, desc: -1 }[direction] });
-
-    console.log(JSON.stringify(userDefinedProperties, null, 2))
 
     return userDefinedProperties.map(this.format);
   }
