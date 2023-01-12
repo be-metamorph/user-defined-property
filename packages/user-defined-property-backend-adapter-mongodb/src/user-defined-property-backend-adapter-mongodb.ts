@@ -1,5 +1,5 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
-import { UserDefinedPropertyAdapter, CreateUserDefinedPropertyInput, UpdateUserDefinedPropertyInput } from '@be-metamorph/user-defined-property-shared';
+import { CreateUserDefinedPropertyInput, UpdateUserDefinedPropertyInput, ListUserDefinedPropertiesParams } from '@be-metamorph/user-defined-property-shared';
 
 const COLLECTION_NAMES = {
   USER_DEFINED_PROPERTY: 'userDefinedProperties',
@@ -14,6 +14,10 @@ class UserDefinedPropertyMongoDBAdapter {
     this.client.connect();
 
     this.userDefinedPropertyCollection = this.client.db().collection(COLLECTION_NAMES.USER_DEFINED_PROPERTY);
+  }
+
+  private format({ _id, ...userDefinedProperty }) {
+    return userDefinedProperty;
   }
 
   getClient() {
@@ -33,15 +37,23 @@ class UserDefinedPropertyMongoDBAdapter {
   }
 
   async findById(id: string) {
-    const { _id, ...userDefinedProperties } = await this.userDefinedPropertyCollection.findOne({ id });
-
-    return userDefinedProperties;
+    return this.format(await this.userDefinedPropertyCollection.findOne({ id }));
   }
 
   async deleteById(id: string) {
     await this.userDefinedPropertyCollection.deleteOne({ id })
 
     return true;
+  }
+
+  async find({ page: { offset = 0, limit = 25 } = {}, entity, type, label }: ListUserDefinedPropertiesParams) {
+    const query: ListUserDefinedPropertiesParams = { entity, type };
+
+    if (label && label.length) query.label = new RegExp(`.*${label}.*`);
+
+    const userDefinedProperties = this.userDefinedPropertyCollection.find(query).offset(offset).limit(limit);
+
+    return userDefinedProperties.map(this.format);
   }
 }
 
