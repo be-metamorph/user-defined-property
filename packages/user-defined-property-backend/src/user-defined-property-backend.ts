@@ -6,7 +6,6 @@ import {
   SaveRessourceUserDefinedPropertieValuesInput,
 } from '@be-metamorph/user-defined-property-shared';
 
-import UserDefinedProperty from './user-defined-property';
 import CreateUserDefinedProperty from './create-user-defined-property';
 import FindUserDefinedPropertyById from './find-user-defined-property-by-id';
 import DeleteUserDefinedPropertyById from './delete-user-defined-property-by-id';
@@ -30,7 +29,7 @@ class UserDefinedPropertyBackendFacade {
     return createUserDefinedProperty.execute(input);
   }
 
-  findUserDefinedPropertyById(id: string): Promise<UserDefinedProperty> {
+  findUserDefinedPropertyById(id: string) {
     const findUserDefinedPropertyById = new FindUserDefinedPropertyById(this.options.adapter);
 
     return findUserDefinedPropertyById.execute(id);
