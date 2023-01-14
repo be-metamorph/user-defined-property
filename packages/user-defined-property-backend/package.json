@@ -1,6 +1,6 @@
 {
   "name": "@be-metamorph/user-defined-property-backend",
-  "version": "0.0.27-alpha.0",
+  "version": "0.0.32-alpha.0",
   "description": "A library making easy user defined property",
   "keywords": [
     "udp"
