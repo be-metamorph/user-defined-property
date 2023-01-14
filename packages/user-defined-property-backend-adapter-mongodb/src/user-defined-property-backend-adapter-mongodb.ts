@@ -67,14 +67,29 @@ class UserDefinedPropertyMongoDBAdapter {
     if (type) query.type = type;
     if (label && label.length) query.label = new RegExp(`.*${label}.*`);
 
-    const userDefinedProperties = await this.userDefinedPropertyCollection
-      .find(query)
-      .skip(Number.isInteger(offset) ? offset : parseInt(limit as any))
-      .limit(Number.isInteger(limit) ? limit : parseInt(limit as any))
-      .sort({ [by]: { asc: 1, desc: -1 }[direction] })
-      .toArray();
+    // const userDefinedProperties = await this.userDefinedPropertyCollection
+    //   .find(query)
+    //   .skip(Number.isInteger(offset) ? offset : parseInt(limit as any))
+    //   .limit(Number.isInteger(limit) ? limit : parseInt(limit as any))
+    //   .sort({ [by]: { asc: 1, desc: -1 }[direction] })
+    //   .toArray();
 
-    return userDefinedProperties.map(this.format);
+    const result = await this.userDefinedPropertyCollection.aggregate([
+      { $match: query },
+      { $facet: {
+        total: [{ $count: 'count' }],
+        userDefinedProperties: [
+          { $sort: { [by]: { asc: 1, desc: -1 }[direction] } },
+          { $skip: Number.isInteger(offset) ? offset : parseInt(limit as any) },
+          { $limit: Number.isInteger(limit) ? limit : parseInt(limit as any) },
+        ]
+      }}
+    ])
+
+    return {
+      metadata: { count: result.userDefinedProperties.length, total: result.total.count || 0 },
+      data: result.userDefinedProperties.map(this.format)
+    };
   }
 
   async saveRessourceUserDefinedPropertyValues({ ressourceId, values }: SaveRessourceUserDefinedPropertieValuesInput) {
