@@ -4,7 +4,7 @@ class CreateUserDefinedProperty {
   constructor(private adapter: UserDefinedPropertyAdapter) {}
 
   execute(input: CreateUserDefinedPropertyInput) {
-    return this.adapter.insert(input);
+    return this.adapter.insert({ ...input, createdAt: new Date() });
   }
 }
 

@@ -15,15 +15,17 @@ export interface UpdateUserDefinedPropertyInput {
   label: string
 }
 
-export class UserDefinedProperties {
+export type UserDefinedProperty = {
   id: string
   type: UserDefinedPropertyType
   label: string
+  createdAt: Date
+  entity: string
 }
 
 export interface ListUserDefinedPropertiesParams {
   page?: { limit?: number, offset?: number }
-  sort?: { by?: 'entity' | 'label' | 'type', direction?: 'asc' | 'desc' },
+  sort?: { by?: Omit<UserDefinedProperty, 'id'>, direction?: 'asc' | 'desc' },
   entity?: string
   label?: string
   type?: UserDefinedPropertyType

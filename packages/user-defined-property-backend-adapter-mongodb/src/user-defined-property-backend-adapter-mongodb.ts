@@ -56,7 +56,7 @@ class UserDefinedPropertyMongoDBAdapter {
 
   async find({
     page: { offset = 0, limit = 25 } = {},
-    sort: { by = 'label', direction = 'asc' } = {},
+    sort: { by = 'createdAt', direction = 'desc' } = {},
     entity,
     type,
     label,
