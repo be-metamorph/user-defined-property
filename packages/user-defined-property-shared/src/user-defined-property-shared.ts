@@ -25,7 +25,7 @@ export type UserDefinedProperty = {
 
 export interface ListUserDefinedPropertiesParams {
   page?: { limit?: number, offset?: number }
-  sort?: { by?: Omit<UserDefinedProperty, 'id'>, direction?: 'asc' | 'desc' },
+  sort?: { by?: keyof Omit<UserDefinedProperty, 'id'>, direction?: 'asc' | 'desc' },
   entity?: string
   label?: string
   type?: UserDefinedPropertyType
